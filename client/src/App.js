@@ -4,12 +4,20 @@ function App() {
   const [backendData, setBackendData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api")
-      .then((res) => res.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
+    fetch("http://localhost:5000/my-protected-resource", {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Basic ' + btoa('userOne:passwordOne')
+  }
+})
+.then(response => response.text())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+  } ,
+
+
+
+       []);
 
   return (
     <div>
