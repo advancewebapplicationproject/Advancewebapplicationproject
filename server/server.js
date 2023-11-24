@@ -55,18 +55,27 @@ app.get('/some-other-protected-resource', passport.authenticate('basic', { sessi
   res.send('Other protected resource accessed');
   
 });
-
-app.post('jwtlogin',passport.authenticate('basic', { session: false }), (req, res) => {
-  //check username and password
-
-  //generate JWT
-
-  //send  JWT as a response
+//check username and password
+app.post('/jwtLogin',passport.authenticate('basic', { session: false }), (req, res) => {
+//generate JWT
+  const payload = {
+    foo : {
+      bar: true
+    }
+  };
+  const secretKey = "MyVerySecretKey";
+  const options = {
+    expiresIn: '1d'
+  };
+  const generatedJWT = jwt.sign(payload, secretKey, options)
+//send  JWT as a response
+res.json({jwt: generatedJWT}
+  );
   
 });
 app.get('/jwt-protected-resource',  (req, res) => {
+  res.send('ok');
 });
-
 
 
 
