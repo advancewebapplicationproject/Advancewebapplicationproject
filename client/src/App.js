@@ -4,7 +4,7 @@ function App() {
   const [backendData, setBackendData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/my-protected-resource", {
+    fetch("http://localhost:5005/my-protected-resource", {
   method: 'GET',
   headers: {
     'Authorization': 'Basic ' + btoa('userOne:passwordOne')
@@ -14,8 +14,6 @@ function App() {
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
   } ,
-
-
 
        []);
 
