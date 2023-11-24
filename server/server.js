@@ -5,7 +5,8 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-
+const JwtStrategy = require('passport-jwt').Strategy;
+        ExtractJwt = require('passport-jwt').ExtractJwt;
 app.use(cors());
 app.options("*", cors()); // Use cors middleware to enable CORS
 
@@ -42,6 +43,20 @@ passport.use(
   })
 );
 
+const jwtoptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey : "MyVerySecretSigningKey"
+};
+
+passport.use(new JwtStrategy(jwtoptions, function(jwt_payload, done) {
+  console.log("JWT is valid");
+  console.log("payload is as follows");
+  console.log(jwt_payload);
+
+  done(null, jwt_payload);
+
+}));
+
 app.get('/my-protected-resource', (req, res) => {
   res.send('Hello world');
 });
@@ -63,7 +78,7 @@ app.post('/jwtLogin',passport.authenticate('basic', { session: false }), (req, r
       bar: true
     }
   };
-  const secretKey = "MyVerySecretKey";
+  const secretKey = "MyVerySecretSigningKey";
   const options = {
     expiresIn: '1d'
   };
@@ -73,7 +88,7 @@ res.json({jwt: generatedJWT}
   );
   
 });
-app.get('/jwt-protected-resource',  (req, res) => {
+app.get('/jwt-protected-resource', passport.authenticate('jwt', { session: false }),  (req, res) => {
   res.send('ok');
 });
 
