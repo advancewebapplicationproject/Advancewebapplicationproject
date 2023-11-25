@@ -7,6 +7,12 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
         ExtractJwt = require('passport-jwt').ExtractJwt;
+const bodyParser = require('body-parser');
+const {v4: uuidv4} = require('uuid');
+const bcrypt = require('bcryptjs');
+
+app.use(bodyParser.json()); 
+
 app.use(cors());
 app.options("*", cors()); // Use cors middleware to enable CORS
 
@@ -19,12 +25,12 @@ app.use((req, res, next) => {
 
 const users = [
   {
-    id: 1,
+    id: uuidv4(),
     username: 'userOne',
     password: 'passwordOne',
   },
   {
-    id: 2,
+    id: uuidv4(),
     username: 'userTwo',
     password: 'passwordTwo',
   },
@@ -69,6 +75,37 @@ passport.use(new JwtStrategy(jwtoptions, function(jwt_payload, done) {
 app.get('/my-protected-resource', (req, res) => {
   res.send('Hello world');
 });
+
+/*
+REQUEST BODY
+{
+  "username": "userOne",
+  "password": "passwordOne"
+  "email": userone@bar.com"
+}
+
+*/
+app.post('/register', (req, res) => {
+  console.log(req.body);
+
+  //creeate password hash
+  const salt = bcrypt.genSaltSync(6);
+  const passwordHash = bcrypt.hashSync(req.body.password, salt); 
+
+
+  const newUser = {
+    id: uuidv4(),
+    username: req.body.username,
+    password: passwordHash,
+    email: req.body.email
+  };
+  users.push(newUser);
+  console.log(users);
+
+  res.send("ok");
+
+});
+
 
 app.get('/protected-resource', passport.authenticate('basic', { session: false }), (req, res) => {
   console.log('protected resource accessed');
