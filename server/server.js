@@ -12,15 +12,19 @@ app.options("*", cors()); // Use cors middleware to enable CORS
 
 app.use((req, res, next) => {
   console.log('Demo middleware executing...');
+  console.log('Request URL:', req); 
   next();
 });
 
+
 const users = [
   {
+    id: 1,
     username: 'userOne',
     password: 'passwordOne',
   },
   {
+    id: 2,
     username: 'userTwo',
     password: 'passwordTwo',
   },
@@ -29,19 +33,24 @@ const users = [
 
 passport.use(
   new BasicStrategy((username, password, done) => {
-    console.log('username', username);
-    console.log('password', password);
+    console.log('username: '+ username);
+    console.log('password: '+ password);
 
-    // Here, you should perform authentication logic
-    const user = users.find((user) => user.username === username && user.password === password);
+    const user = users.find(u => u.username === username);
 
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username or password' });
+    if (user !=null) {
+      if (user.password === password) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
     }
+      else {
+        done(null, false);
+      }
+    }));
 
-    return done(null, user);
-  })
-);
+    
 
 const jwtoptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -72,15 +81,17 @@ app.get('/some-other-protected-resource', passport.authenticate('basic', { sessi
 });
 //check username and password
 app.post('/jwtLogin',passport.authenticate('basic', { session: false }), (req, res) => {
+  
+
+  
 //generate JWT
   const payload = {
-    foo : {
-      bar: true
-    }
+    user : req.user.id,
+    username : req.user.username
   };
   const secretKey = "MyVerySecretSigningKey";
   const options = {
-    expiresIn: '1d'
+    expiresIn: '2d'
   };
   const generatedJWT = jwt.sign(payload, secretKey, options)
 //send  JWT as a response
@@ -89,7 +100,10 @@ res.json({jwt: generatedJWT}
   
 });
 app.get('/jwt-protected-resource', passport.authenticate('jwt', { session: false }),  (req, res) => {
-  res.send('ok');
+  //console.log(req.user);
+
+  console.log('user id from jwt is ' + req.user.user);
+  res.send('ok, for user ' + req.user.username);
 });
 
 
