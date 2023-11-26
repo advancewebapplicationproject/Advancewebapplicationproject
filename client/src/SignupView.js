@@ -1,9 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import Constants from './Constants.json'
+import {useNavigate} from 'react-router-dom'
 
 
 export default function SignupView() {
+
+    const navigate = useNavigate();
+
     const handleSignupSubmit= async (event) => {
         try {
         event.preventDefault();
@@ -20,6 +24,7 @@ export default function SignupView() {
                 email: event.target.email.value
             })
             console.log(result);
+            navigate('/login', {replace: true});
 
         } catch (error) {
             console.error(error);
