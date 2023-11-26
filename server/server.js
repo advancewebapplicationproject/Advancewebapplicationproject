@@ -80,17 +80,37 @@ app.get('/my-protected-resource', (req, res) => {
 REQUEST BODY
 {
   "username": "userOne",
-  "password": "passwordOne"
-  "email": userone@bar.com"
+  "password": "passwordOne",
+  "email": "userone@bar.com"
 }
 
-*/
-app.post('/register', (req, res) => {
-  console.log(req.body);
 
-  //creeate password hash
+*/
+app.post('/registerBasic', 
+(req, res) => {
+  if ('username' in req.body === false) {
+    res.status(400);
+    res.json({status: 'username is missing'})
+    return;
+  }
+  if ('password' in req.body === false) {
+    res.status(400);
+    res.json({status: 'password is missing'})
+    return;
+  }
+  if ('email' in req.body === false) {
+    res.status(400);
+    res.json({status: 'email is missing'})
+    return;
+  }
+
+  //create password hash
   const salt = bcrypt.genSaltSync(6);
-  const passwordHash = bcrypt.hashSync(req.body.password, salt); 
+  const passwordHash = bcrypt.hashSync(req.body.password, salt);
+  console.log(passwordHash);
+
+  res.status(201).json({status: 'Created'});
+
 
 
   const newUser = {
