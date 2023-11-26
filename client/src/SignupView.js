@@ -1,13 +1,32 @@
-import React from "react"
+import React from 'react'
+import axios from 'axios'
+import Constants from './Constants.json'
 
 
 export default function SignupView() {
-    const handleSignupSubmit= (event) => {
+    const handleSignupSubmit= async (event) => {
+        try {
         event.preventDefault();
+        
         console.log(event.target.username.value);
         console.log(event.target.email.value);
         console.log(event.target.password.value);
-    }
+        
+
+       
+            const result = await axios.post(Constants.API_ADDRESS + '/registerBasic', {
+                username: event.target.username.value,
+                password: event.target.password.value,
+                email: event.target.email.value
+            })
+            console.log(result);
+
+        } catch (error) {
+            console.error(error);
+           }
+ }
+    
+
             return (
         <div>
         <h2>Sign up</h2>
@@ -30,6 +49,7 @@ export default function SignupView() {
         </form>
         </div>
         
+
     )
     
 }
