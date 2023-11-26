@@ -45,7 +45,7 @@ passport.use(
     const user = users.find(u => u.username === username);
 
     if (user !=null) {
-      if (user.password === password) {
+      if (bcrypt.compareSync(password, user.password)) {
         done(null, user);
       } else {
         done(null, false);
