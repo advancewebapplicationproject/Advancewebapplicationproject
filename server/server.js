@@ -110,6 +110,7 @@ app.post('/registerBasic',
   console.log(passwordHash);
 
   res.status(201).json({status: 'Created'});
+  return;
 
 
 
