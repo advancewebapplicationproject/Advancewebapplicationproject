@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import axios from 'axios'
 import Constants from './Constants.json'
 import {useNavigate} from 'react-router-dom'
@@ -6,15 +6,15 @@ import {useNavigate} from 'react-router-dom'
 
 export default function SignupView() {
 
+    const [signupProcessState, setSignupProcessState] = useState("idle");
     const navigate = useNavigate();
-
+    
+ 
     const handleSignupSubmit= async (event) => {
         try {
         event.preventDefault();
-        
-        console.log(event.target.username.value);
-        console.log(event.target.email.value);
-        console.log(event.target.password.value);
+        setSignupProcessState("processing")
+ 
         
 
        
@@ -24,14 +24,37 @@ export default function SignupView() {
                 email: event.target.email.value
             })
             console.log(result);
-            navigate('/login', {replace: true});
+            
+            setSignupProcessState("signupSuccess")
+            setTimeout(() => {
+               navigate('/login', {replace: true});
+            }, 1500)
 
         } catch (error) {
-            console.error(error);
+            console.error(error);  
+            setSignupProcessState("signupFailure")
+        
            }
- }
+        }
+        let signupUIControl=null; 
+        switch (signupProcessState) {
+            case "idle":
+                signupUIControl= <button type="submit" >Signup</button>
+                break;
+            case "processing":
+                signupUIControl= <span style={{color:"blue"}}>Processing...</span>
+                break;
+            case "signupSuccess":
+                signupUIControl= <span style={{color:"green"}}>Sign up successful!</span>
+                break;
+            case "signupFailure":
+        
+             signupUIControl= <span style={{color:"red"}}>Sign up failed!</span>
+             break;
+            default:
+        }   
+        
     
-
             return (
         <div>
         <h2>Sign up</h2>
@@ -49,7 +72,7 @@ export default function SignupView() {
                 <input type="text" name="password"></input>
         </div>
         <div>
-                <button type="submit" >Sign up</button>
+                {signupUIControl}
         </div>
         </form>
         </div>
