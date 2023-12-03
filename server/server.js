@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcryptjs');
 
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 app.use(cors());
 app.options("*", cors()); // Use cors middleware to enable CORS
@@ -39,24 +39,22 @@ const users = [
 
 passport.use(
   new BasicStrategy((username, password, done) => {
-    console.log('username: '+ username);
-    console.log('password: '+ password);
+    console.log('username: ' + username);
+    console.log('password: ' + password);
 
     const user = users.find(u => u.username === username);
 
-    if (user !=null) {
+    if (user != null) {
       if (bcrypt.compareSync(password, user.password)) {
         done(null, user);
       } else {
         done(null, false);
       }
+    } else {
+      done(null, false);
     }
-      else {
-        done(null, false);
-      }
-    }));
-
-    
+  })
+);
 
 const jwtoptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -110,9 +108,6 @@ app.post('/registerBasic',
   console.log(passwordHash);
 
   res.status(201).json({status: 'Created'});
-  return;
-
-
 
   const newUser = {
     id: uuidv4(),
@@ -138,31 +133,44 @@ app.get('/some-other-protected-resource', passport.authenticate('basic', { sessi
   
 });
 //check username and password
-app.post('/jwtLogin',passport.authenticate('basic', { session: false }), (req, res) => {
-  
+app.post('/JWTLogin', (req, res, next) => {
+  const { username, password } = req.body;
 
-  
-//generate JWT
-  const payload = {
-    user : req.user.id,
-    username : req.user.username
-  };
-  const secretKey = "MyVerySecretSigningKey";
-  const options = {
-    expiresIn: '2d'
-  };
-  const generatedJWT = jwt.sign(payload, secretKey, options)
-//send  JWT as a response
-res.json({jwt: generatedJWT}
-  );
-  
-});
-app.get('/jwt-protected-resource', passport.authenticate('jwt', { session: false }),  (req, res) => {
-  //console.log(req.user);
+  passport.authenticate('basic', { session: false }, (err, user, info) => {
+    console.log('Error:', err);
+  console.log('User:', user);
+  console.log('Info:', info);
+    if (err || !user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
-  console.log('user id from jwt is ' + req.user.user);
-  res.send('ok, for user ' + req.user.username);
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err);
+      }
+
+      const body = {
+        id: user.id,
+        username: user.username,
+      };
+
+      // generate JWT
+      const payload = {
+        user: body
+      };
+
+      const options = {
+        expiresIn: '10d'
+      };
+      const token = jwt.sign(payload, secretKey, options);
+
+      // send JWT as a response
+      return res.json({ token });
+    });
+  })(req, res, next);
 });
+
+
 
 
 
