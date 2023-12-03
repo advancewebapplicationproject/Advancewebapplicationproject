@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 
 export default function ProtectedView(props) {
     const decodedJWT = jwt.decode(props.jwt);
+    
     console.log(decodedJWT);
     return (
         <div class="protected">
