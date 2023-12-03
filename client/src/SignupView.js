@@ -14,9 +14,6 @@ export default function SignupView() {
         try {
         event.preventDefault();
         setSignupProcessState("processing")
- 
-        
-
        
             const result = await axios.post(Constants.API_ADDRESS + '/registerBasic', {
                 username: event.target.username.value,
