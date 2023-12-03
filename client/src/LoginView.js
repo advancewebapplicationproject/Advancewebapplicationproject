@@ -1,9 +1,13 @@
 import React from "react"
 import axios from 'axios'
 import Constants from './Constants.json'
+import {useNavigate} from 'react-router-dom'
 
 
 export default function LoginView() {
+
+    const navigate = useNavigate();
+
     const handleLoginSubmit= async (event) => {
         event.preventDefault();
         try {
@@ -18,6 +22,10 @@ export default function LoginView() {
                     
                 })
                 console.log(result);
+                const receivedJWT = result.data.token;
+                console.log(receivedJWT);
+
+                navigate('/', {replace: true});
     
             } catch (error) {
                 console.error(error);        

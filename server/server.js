@@ -12,6 +12,7 @@ const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcryptjs');
 
 app.use(bodyParser.json());
+const secretKey = "MyVerySecretSigningKey"; 
 
 app.use(cors());
 app.options("*", cors()); // Use cors middleware to enable CORS
@@ -55,6 +56,9 @@ passport.use(
     }
   })
 );
+
+
+    
 
 const jwtoptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
