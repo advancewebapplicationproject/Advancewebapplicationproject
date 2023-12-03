@@ -4,7 +4,7 @@ import Constants from './Constants.json'
 import {useNavigate} from 'react-router-dom'
 
 
-export default function LoginView() {
+export default function LoginView(props) {
 
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function LoginView() {
                 })
                 console.log(result);
                 const receivedJWT = result.data.token;
-                console.log(receivedJWT);
+                props.login(receivedJWT);
 
                 navigate('/', {replace: true});
     
