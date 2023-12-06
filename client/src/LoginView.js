@@ -23,9 +23,10 @@ export default function LoginView(props) {
                 })
                 console.log(result);
                 const receivedJWT = result.data.token;
+                localStorage.setItem('jwt', receivedJWT);
                 props.login(receivedJWT);
 
-                navigate('/', {replace: true});
+                navigate('/protected', {replace: true});
     
             } catch (error) {
                 console.error(error);        

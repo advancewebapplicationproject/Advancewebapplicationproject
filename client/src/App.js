@@ -12,10 +12,17 @@ function App() {
 
   let authRoutes = (
     <>
-      <Route path='/login' element={<LoginView login={(newJwt) => {
+      <Route
+  path='/login'
+  element={
+    <LoginView
+      login={(newJwt) => {
         setUserJwt(newJwt);
         window.localStorage.setItem('appAuthData', newJwt);
-      }} />} />
+      }}
+    />
+  }
+/>
       <Route path='/signup' element={<SignupView />} />
     </>
   );

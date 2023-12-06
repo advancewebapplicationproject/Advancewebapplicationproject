@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import jwt from 'jsonwebtoken';
 import { Link } from "react-router-dom";
 import axios from "axios";
-import constants from './Constants.json'; // Import the default export
+import constants from './Constants.json';
 
-export default function ProtectedView(props) {
+export default function BaseProtectedView(props) {
   const [userTodos, setUserTodos] = useState([]);
-
-  
 
   const decodedToken = jwt.decode(props.jwt);
 
@@ -29,7 +27,7 @@ export default function ProtectedView(props) {
 
   return (
     <div className="protected">
-      <h2>protected view</h2>
+      <h2>Base protected view</h2>
       <div>
         Decoded JWT data from payload: <br />
         User Id: {decodedToken.user.id} <br />
