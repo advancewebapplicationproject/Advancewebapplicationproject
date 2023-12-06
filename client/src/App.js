@@ -7,8 +7,10 @@ import ProtectedView from './ProtectedView';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
+const jwtFromStorage = window.localStorage.getItem('appAuthData');
+
 function App() {
-  const [userJwt, setUserJwt] = useState(null);
+  const [userJwt, setUserJwt] = useState(jwtFromStorage);
 
   let authRoutes = (
     <>
@@ -16,11 +18,11 @@ function App() {
   path='/login'
   element={
     <LoginView
-      login={(newJwt) => {
-        setUserJwt(newJwt);
+      login={ newJwt => {
+        setUserJwt(newJwt)
         window.localStorage.setItem('appAuthData', newJwt);
       }}
-    />
+    /> 
   }
 />
       <Route path='/signup' element={<SignupView />} />
