@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './Home';
+import AboutUs from './AboutUs';
 import LoginView from './LoginView';
 import SignupView from './SignupView';
 import ProtectedView from './ProtectedView';
@@ -42,6 +43,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home userLoggedIn={userJwt != null} />} />
+          <Route path='/about' element={<AboutUs />} />
           {authRoutes}
           <Route path="*" element={<Home userLoggedIn={userJwt != null} />} />
         </Routes>

@@ -1,25 +1,60 @@
-/* Home.css */
 .home-container {
-  background-color: #f0f0f0; /* Set your desired background color */
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  text-align: center;
 }
 
-header {
-  background-color: #333; /* Header background color */
-  color: #fff; /* Header text color */
+/* Navigation Bar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3498db; /* Set your preferred background color */
   padding: 10px;
+  color: #fff;
 }
 
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.my-parcels-title {
+  font-family: YourChosenFont;
+  background-color: #111f28;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.navbar-links a {
+  margin-right: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-auth {
+  display: flex;
+  align-items: center;
+}
+
+/* Main Content Styles */
 .main-content {
-  margin: 20px 0;
+  padding: 20px;
 }
 
+/* Footer Styles */
 footer {
-  background-color: #333; /* Footer background color */
-  color: #fff; /* Footer text color */
+  margin-top: 200px;
   padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  background-color: #34495e; /* Set your preferred background color */
+  color: #fff;
+  text-align: center;
 }

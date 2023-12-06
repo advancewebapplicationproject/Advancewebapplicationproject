@@ -1,0 +1,14 @@
+/* AboutUs.css */
+.about-us-container {
+    background-image: url("C:\\Users\\bhand\\Advancewebapplicationproject-1\\Advancewebapplicationproject\\client\\src\\parcellockerImage.jpg");
+    background-size: cover;  /* Adjusted property for better fitting */
+    background-position: center;
+    color: #fff; /* Set text color to white or a suitable color for readability */
+    padding: 20px;
+    height: 100vh; /* Ensures the container takes up the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
