@@ -1,0 +1,25 @@
+/* Home.css */
+.home-container {
+  background-color: #f0f0f0; /* Set your desired background color */
+  padding: 20px;
+  text-align: center;
+}
+
+header {
+  background-color: #333; /* Header background color */
+  color: #fff; /* Header text color */
+  padding: 10px;
+}
+
+.main-content {
+  margin: 20px 0;
+}
+
+footer {
+  background-color: #333; /* Footer background color */
+  color: #fff; /* Footer text color */
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
