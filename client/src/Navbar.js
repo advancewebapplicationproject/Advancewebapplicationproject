@@ -36,12 +36,9 @@ export default function Navbar() {
       <div className="navbar-auth">
         <p className="user-status">Not logged in</p>
         <div className="auth-links">
-          <Link to="login" className="auth-link">
-            Login
-          </Link>
-          <Link to="signup" className="auth-link">
-            Signup
-          </Link>
+        <Link to="/login" className="auth-link">Login</Link>
+          <Link to="/signup" className="auth-link">Signup</Link>
+          
         </div>
       </div>
     </div>
