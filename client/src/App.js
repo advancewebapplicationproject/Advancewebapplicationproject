@@ -5,6 +5,10 @@ import AboutUs from './AboutUs';
 import LoginView from './LoginView';
 import SignupView from './SignupView';
 import ProtectedView from './ProtectedView';
+import BoxDetails from './BoxOptions';
+import Receiver from './Receiver';
+import Staff from './Staff';
+import Sender from './Sender';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -46,6 +50,10 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           {authRoutes}
           <Route path="*" element={<Home userLoggedIn={userJwt != null} />} />
+          <Route path='/sender' element={<Sender />} />
+          <Route path='/receiver' element={<Receiver />} />
+          <Route path='/staff' element={<Staff />} />
+          <Route path='/box-details/:boxIndex' element={<BoxDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

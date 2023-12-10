@@ -6,7 +6,6 @@ import "./AboutUs.css"; // Create a new CSS file for styling
 export default function AboutUs() {
   return (
     <div className="about-us-container">
-      {/* Use the Navbar component */}
       <Navbar />
 
       {/* Main Content with Background Image */}
