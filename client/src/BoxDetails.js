@@ -11,7 +11,9 @@ const BoxDetails = ({ box }) => {
       <p>Length: {box.length}</p>
       <p>Height: {box.height}</p>
       <p>Price: {box.price}</p>
+    
     </div>
+
   );
 };
 

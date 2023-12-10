@@ -7,7 +7,7 @@ import SignupView from './SignupView';
 import ProtectedView from './ProtectedView';
 import BoxDetails from './BoxOptions';
 import ReceiverForm from './ReceiverForm';
-import Staff from './Staff';
+import StaffForm from './StaffForm';
 import Sender from './Sender';
 import SenderForm from './SenderForm';   
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -55,7 +55,7 @@ function App() {
           <Route path='/sender-form' element={<SenderForm />} />
           <Route path='/box-options' element={<BoxDetails />} />
           <Route path='/receiver' element={<ReceiverForm />} />
-          <Route path='/staff' element={<Staff />} />
+          <Route path='/staff' element={<StaffForm />} />
           <Route path='/box-details/:boxIndex' element={<BoxDetails />} />
         </Routes>
       </BrowserRouter>

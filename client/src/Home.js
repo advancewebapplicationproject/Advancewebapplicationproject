@@ -1,6 +1,7 @@
 // Home.js
 import React from "react";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 import "./Home.css";
 
@@ -20,26 +21,18 @@ export default function Home(props) {
 
       {/* User Role Selection */}
       <div className="user-role-selection">
-        <div className="custom-dropdown">
-          <div className="dropdown-header">Are you a: </div>
-          <div className="dropdown-options">
-            <Link to="/sender">
-              <div>Sender</div>
-            </Link>
-            <Link to="/receiver">
-              <div>Receiver</div>
-            </Link>
-            <Link to="/staff">
-              <div>Staff</div>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <footer>
-        <p>&copy; 2023 MyParcels App. All rights reserved.</p>
-      </footer>
+  <div className="custom-dropdown">
+    <div className="dropdown-header">Are you a:</div>
+    <div className="dropdown-options">
+      <Link to="/sender">Sender</Link>
+      <Link to="/receiver">Receiver</Link>
+      <Link to="/staff">Staff</Link>
+    </div>
+  </div>
+</div>
+        
+        {/* Footer */}
+        <Footer />
     </div>
   );
 }
