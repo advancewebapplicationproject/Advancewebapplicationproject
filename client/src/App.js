@@ -6,9 +6,10 @@ import LoginView from './LoginView';
 import SignupView from './SignupView';
 import ProtectedView from './ProtectedView';
 import BoxDetails from './BoxOptions';
-import Receiver from './Receiver';
+import ReceiverForm from './ReceiverForm';
 import Staff from './Staff';
 import Sender from './Sender';
+import SenderForm from './SenderForm';   
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -51,7 +52,9 @@ function App() {
           {authRoutes}
           <Route path="*" element={<Home userLoggedIn={userJwt != null} />} />
           <Route path='/sender' element={<Sender />} />
-          <Route path='/receiver' element={<Receiver />} />
+          <Route path='/sender-form' element={<SenderForm />} />
+          <Route path='/box-options' element={<BoxDetails />} />
+          <Route path='/receiver' element={<ReceiverForm />} />
           <Route path='/staff' element={<Staff />} />
           <Route path='/box-details/:boxIndex' element={<BoxDetails />} />
         </Routes>

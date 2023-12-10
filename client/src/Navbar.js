@@ -34,8 +34,10 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-auth">
-        <p className="user-status">Not logged in</p>
+        <p className="user-status">Not logged in</p> <br />
+        <p className="Sign-up-Status">New to MyParcels</p>
         <div className="auth-links">
+         
         <Link to="/login" className="auth-link">Login</Link>
           <Link to="/signup" className="auth-link">Signup</Link>
           
