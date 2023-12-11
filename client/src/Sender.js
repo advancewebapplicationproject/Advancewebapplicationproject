@@ -35,6 +35,7 @@ export default function Sender() {
       .then((response) => response.json())
       .then((response) => {
         setPackages(response);
+        setSelectedBox(null);
       });
     return () => {};
   }, []);
