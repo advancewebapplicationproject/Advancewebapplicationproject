@@ -4,4 +4,25 @@
   margin: 0 auto;
 }
 
+.package-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.package-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.package {
+  border: 1px #aaaaff solid;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+
+}
+
 /* Add more styles as needed */

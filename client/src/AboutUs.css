@@ -1,6 +1,6 @@
 /* AboutUs.css */
 .about-us-container {
-    background-image: url("C:\Users\bhand\Advancewebapplicationproject-1\Advancewebapplicationproject\client\public\parcellockerImage.jpg");
+    background-image: url("../public/parcellockerImage.jpg");
     background-size: cover;  /* Adjusted property for better fitting */
     background-position: center;
     color: #fff; /* Set text color to white or a suitable color for readability */

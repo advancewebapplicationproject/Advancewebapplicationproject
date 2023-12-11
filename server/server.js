@@ -82,36 +82,42 @@ REQUEST BODY
   "password": "passwordOne",
   "email": "userone@bar.com"
 }
-
-
 */
+
+const packages = [
+  {
+    sender_name: "John Doe",
+    sender_address: "Nepal",
+    sender_email: "123@gmail.com",
+    sender_contact: "123456789",
+    item_name: "Laptop",
+    item_weight: "2kg",
+    receiver_name: "John Doe",
+    receiver_address: "Nepal",
+    receiver_email: "321@gmail.com",
+    receiver_contact: "987654321",
+  },
+  {
+    sender_name: "John bow",
+    sender_address: "Rupakot",
+    sender_email: "12345@gmail.com",
+    sender_contact: "12345678",
+    item_name: "Laptop 2",
+    item_weight: "5kg",
+    receiver_name: "John_Doe",
+    receiver_address: "Gulmi",
+    receiver_email: "3210@gmail.com",
+    receiver_contact: "9876543210",
+  },
+];
+
 app.get("/packages", (req, res) => {
-  res.json([
-    {
-      sender_name: "John Doe",
-      sender_address: "Nepal",
-      sender_email: "123@gmail.com",
-      sender_contact: "123456789",
-      item_name: "Laptop",
-      item_weight: "2kg",
-      receiver_name: "John Doe",
-      receiver_address: "Nepal",
-      receiver_email: "321@gmail.com",
-      receiver_contact: "987654321",
-    },
-    {
-      sender_name: "John bow",
-      sender_address: "Rupakot",
-      sender_email: "12345@gmail.com",
-      sender_contact: "12345678",
-      item_name: "Laptop 2",
-      item_weight: "5kg",
-      receiver_name: "John_Doe",
-      receiver_address: "Gulmi",
-      receiver_email: "3210@gmail.com",
-      receiver_contact: "9876543210",
-    },
-  ]);
+  res.json(packages);
+});
+
+app.post("/packages", (req, res) => {
+  packages.push(req.body);
+  res.status(201).json({ status: "Created" });
 });
 
 app.post("/registerBasic", (req, res) => {

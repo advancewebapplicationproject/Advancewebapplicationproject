@@ -1,13 +1,29 @@
 // SenderForm.js
-import React from 'react';
-import './SenderForm.css'; 
-
+import React from "react";
+import "./SenderForm.css";
 
 const SenderForm = ({ onSubmit }) => {
   return (
     <div>
       <h2>Sender Form</h2>
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const data = {
+            sender_name: e.target.senderName.value,
+            sender_address: e.target.senderAddress.value,
+            sender_email: e.target.senderEmail.value,
+            sender_contact: e.target.senderContact.value,
+            item_name: e.target.itemName.value,
+            item_weight: e.target.itemWeight.value,
+            receiver_name: e.target.receiverName.value,
+            receiver_address: e.target.receiverAddress.value,
+            receiver_email: e.target.receiverEmail.value,
+            receiver_contact: e.target.receiverContact.value,
+          };
+          onSubmit(data);
+        }}
+      >
         {/* Sender Information */}
         <div>
           <h3>Sender Information</h3>
