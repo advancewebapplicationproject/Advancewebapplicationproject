@@ -84,6 +84,9 @@ export default function Sender() {
                       <p>Receiver address: {pack.receiver_address}</p>
                       <p>Receiver email: {pack.receiver_email}</p>
                       <p>Receiver contact: {pack.receiver_contact}</p>
+                      <p>Code: {pack.code}</p>
+                      {pack.locker_id && <p>Locker ID: {pack.locker_id}</p>}
+                      <p>Status: {pack.locker_id ? "send" : "delivered"}</p>
                     </div>
                   );
                 })}

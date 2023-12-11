@@ -84,8 +84,9 @@ REQUEST BODY
 }
 */
 
-const packages = [
+let packages = [
   {
+    id: 1,
     sender_name: "John Doe",
     sender_address: "Nepal",
     sender_email: "123@gmail.com",
@@ -96,8 +97,11 @@ const packages = [
     receiver_address: "Nepal",
     receiver_email: "321@gmail.com",
     receiver_contact: "987654321",
+    locker_id: 1,
+    code: 4444,
   },
   {
+    id: 2,
     sender_name: "John bow",
     sender_address: "Rupakot",
     sender_email: "12345@gmail.com",
@@ -108,16 +112,108 @@ const packages = [
     receiver_address: "Gulmi",
     receiver_email: "3210@gmail.com",
     receiver_contact: "9876543210",
+    locker_id: 2,
+    code: 5555,
   },
 ];
+
+const updatePackage = (id, updated_package_info) => {
+  packages = packages.map((package) => {
+    if (package.id === parseInt(id)) {
+      return { ...package, ...updated_package_info };
+    }
+    return package;
+  });
+};
+
+let lockers = [
+  {
+    id: 1,
+    open: false,
+    package_id: 1,
+  },
+  {
+    id: 2,
+    open: false,
+    package_id: 2,
+  },
+  {
+    id: 3,
+    open: false,
+    package_id: null,
+  },
+  {
+    id: 4,
+    open: false,
+    package_id: null,
+  },
+  {
+    id: 5,
+    open: false,
+    package_id: null,
+  },
+];
+
+const updateLocker = (id, updated_locker_info) => {
+  lockers = lockers.map((locker) => {
+    if (locker.id === parseInt(id)) {
+      return { ...locker, ...updated_locker_info };
+    }
+    return locker;
+  });
+};
+
+const findEmptyLocker = () => {
+  return lockers.find((locker) => locker.package_id === null);
+};
+
+const findPackageByLockerId = (id) => {
+  return packages.find((package) => package.locker_id === id);
+};
 
 app.get("/packages", (req, res) => {
   res.json(packages);
 });
 
 app.post("/packages", (req, res) => {
-  packages.push(req.body);
-  res.status(201).json({ status: "Created" });
+  const empty_locker = findEmptyLocker();
+  if (empty_locker) {
+    const code = Math.floor(1000 + Math.random() * 9000);
+    const package = {
+      ...req.body,
+      locker_id: empty_locker.id,
+      id: packages.length + 1,
+      code,
+      status: "send",
+    };
+    packages.push(package);
+    updateLocker(empty_locker.id, {
+      ...empty_locker,
+      package_id: package.id,
+    });
+    return res.status(201).json({ status: "Created" });
+  }
+  return res.status(400).json({ message: "No empty locker found" });
+});
+
+app.get("/lockers", (req, res) => {
+  res.json(lockers);
+});
+
+app.patch("/lockers/:id", (req, res) => {
+  const locker_id = parseInt(req.params.id);
+  const package = findPackageByLockerId(locker_id);
+  if (package && package.code == req.body.code) {
+    updateLocker(locker_id, req.body);
+    return res.status(200).json({ status: "Updated" });
+  }
+
+  if (package && !package.open) {
+    updateLocker(locker_id, { ...req.body, package_id: null });
+    updatePackage(package.id, { locker_id: null });
+    return res.status(200).json({ status: "Updated" });
+  }
+  return res.status(400).json({ message: "Invalid locker code" });
 });
 
 app.post("/registerBasic", (req, res) => {

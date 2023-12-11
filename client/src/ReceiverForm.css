@@ -37,4 +37,20 @@
   button:hover {
     background-color: #45a049;
   }
+
+  .lockers-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .locker {
+    border: 1px #aaaaff solid;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+  }
   
+  .red {
+    color: red;
+  }
