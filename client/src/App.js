@@ -17,7 +17,7 @@ const jwtFromStorage = window.localStorage.getItem('appAuthData');
 
 function App() {
   const [userJwt, setUserJwt] = useState(jwtFromStorage);
-
+ 
   let authRoutes = (
     <>
       <Route
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div>
-      <h1>React auth demo</h1>
+      <h1>Parcel Tracker</h1> 
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home userLoggedIn={userJwt != null} />} />
