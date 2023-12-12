@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import constants from './Constants.json';
+import constants from "./Constants.json";
 
 export default function BaseProtectedView(props) {
   const [userTodos, setUserTodos] = useState([]);
@@ -13,17 +13,17 @@ export default function BaseProtectedView(props) {
 
   const loadDataWithJWT = async () => {
     try {
-      const results = await axios.get(constants.API_ADDRESS + '/todosJWT', {
+      const results = await axios.get(constants.API_ADDRESS + "/todosJWT", {
         headers: {
-          Authorization: 'Bearer ' + props.jwt
-        }
+          Authorization: "Bearer " + props.jwt,
+        },
       });
       console.log("results", results.data);
       setUserTodos(results.data);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div className="protected">
@@ -34,12 +34,14 @@ export default function BaseProtectedView(props) {
         User email: {decodedToken.user.email} <br />
       </div>
       <div>
-        <button onClick={loadDataWithJWT}>Click to load user todos with JWT</button>
+        <button onClick={loadDataWithJWT}>
+          Click to load user todos with JWT
+        </button>
       </div>
       <div>
         <table>
           <tbody>
-            {userTodos.map(t => (
+            {userTodos.map((t) => (
               <tr key={t.id}>
                 <td>{t.description}</td>
                 <td>{t.dueDate}</td>

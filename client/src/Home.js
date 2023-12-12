@@ -21,18 +21,18 @@ export default function Home(props) {
 
       {/* User Role Selection */}
       <div className="user-role-selection">
-  <div className="custom-dropdown">
-    <div className="dropdown-header">Are you a:</div>
-    <div className="dropdown-options">
-      <Link to="/sender">Sender</Link>
-      <Link to="/receiver">Receiver</Link>
-      <Link to="/staff">Staff</Link>
-    </div>
-  </div>
-</div>
-        
-        {/* Footer */}
-        <Footer />
+        <div className="custom-dropdown">
+          <div className="dropdown-header">Are you a:</div>
+          <div className="dropdown-options">
+            <Link to="/sender">Sender</Link>
+            <Link to="/receiver">Receiver</Link>
+            <Link to="/staff">Staff</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
