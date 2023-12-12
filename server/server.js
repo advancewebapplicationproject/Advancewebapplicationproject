@@ -268,6 +268,7 @@ app.get(
     res.send("Other protected resource accessed");
   }
 );
+
 //check username and password
 app.post("/JWTLogin", (req, res, next) => {
   const { username, password } = req.body;
@@ -304,6 +305,12 @@ app.post("/JWTLogin", (req, res, next) => {
       return res.json({ token });
     });
   })(req, res, next);
+});
+
+// Add this after your existing routes
+app.post("/logout", (req, res) => {
+  // Perform any necessary cleanup or additional logic for logout
+  res.json({ message: "Successfully logged out" });
 });
 
 app.listen(port, () => {

@@ -7,14 +7,35 @@ import "./Navbar.css"; // Import a separate CSS file for styling
 
 export default function Navbar() {
   const [showSettings, setShowSettings] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+  const [logoutMessage, setLogoutMessage] = useState(null);
 
   const toggleSettings = () => {
     setShowSettings(!showSettings);
   };
 
-  const handleLogout = () => {
-    // Implement your logout logic here
-    console.log("Logout clicked");
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:5005/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`, // Use the access token from the state
+        },
+      });
+
+      if (response.ok) {
+        console.log("Logout successful");
+        setAccessToken(null);
+        setLogoutMessage("Successfully logged out!");
+      } else {
+        const errorData = await response.json();
+        console.error("Logout failed:", errorData);
+        setLogoutMessage(`Logout failed: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   const handleDeleteAccount = () => {
@@ -63,6 +84,7 @@ export default function Navbar() {
             </div>
           )}
         </div>
+        {logoutMessage && <div className="logout-message">{logoutMessage}</div>}
       </div>
 
       <div className="navbar-auth">
